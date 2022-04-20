@@ -1,0 +1,67 @@
+Email = []
+Passwords = []
+
+
+def choice():
+    print("1: Create account ")
+    print("2: Sign In ")
+    print("3: Quit ")
+
+
+def Password():
+    tries = 3
+    x = False
+    for i in range(len(Passwords)):
+        while not x:
+            code = input("Password: ")
+            if code in Passwords[i]:
+                print("Log In Successfully")
+                x = True
+                
+            else:
+                tries = tries - 1
+                print("\tInvalid password! you have {} tries remaining".format(tries))
+
+
+def Emails():
+    tries = 5
+    mail = False
+    while not mail:
+        x = input("Email: ")
+        if x in Email:
+            Password()
+            break
+
+        else:
+            tries = tries - 1
+            print("\tIncorrect Email!  You have {} tries remaining".format(tries))
+            if tries == 0:
+                break
+
+
+def main():
+    mail = False
+    while not mail:
+        choice()
+        ans = input("\tWhat you want: ")
+        if ans == "1":
+            print("\tCreating account")
+            email = input("Enter your email: ")
+            Pass = input("Enter your Password: ")
+            Email.append(email)
+            Passwords.append(Pass)
+            print("\tAccount has been created! ")
+        elif ans == "2":
+            Emails()
+        elif ans == "3":
+            print("Thanks for using our program")
+            mail = True
+
+        else:
+            print("This is not an option")
+
+
+main()
+
+
+
