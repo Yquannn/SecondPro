@@ -1,11 +1,41 @@
 Email = []
 Passwords = []
+AccountSignIn = []
 
 
 def choice():
     print("1: Create account ")
     print("2: Sign In ")
-    print("3: Quit ")
+    print("3: Delete Accounts ")
+    print("4: Check Accounts ")
+    print("5: Quit ")
+
+
+def delete():
+    if not Email:
+        print("No Account Found, Please Create Account First")
+    else:
+        print("\tDeleting Account")
+        t = False
+        tries = 3
+        x = input("Email: ")
+        if x in Email:
+            while not t:
+                y = input("Password : ")
+                if y in Passwords:
+                    Email.pop()
+                    Passwords.pop()
+                    print("\tAccount has been Deleted!")
+                    AccountSignIn.pop()
+                    t = True
+                else:
+                    tries = tries - 1
+                    print("Invalid Password You have {} tries remaining".format(tries))
+                    if tries == 0:
+                        break
+
+        else:
+            print("\tAccount not Found")
 
 
 def Password():
@@ -17,7 +47,6 @@ def Password():
             if code in Passwords[i]:
                 print("Log In Successfully")
                 x = True
-                
             else:
                 tries = tries - 1
                 print("\tInvalid password! you have {} tries remaining".format(tries))
@@ -26,17 +55,31 @@ def Password():
 def Emails():
     tries = 5
     mail = False
-    while not mail:
-        x = input("Email: ")
-        if x in Email:
-            Password()
-            break
-
-        else:
-            tries = tries - 1
-            print("\tIncorrect Email!  You have {} tries remaining".format(tries))
-            if tries == 0:
+    if not Email:
+        print("No Account Found, Please Create Account First")
+    else:
+        print("\tSign In")
+        while not mail:
+            x = input("Email: ")
+            if x in Email:
+                Password()
                 break
+            else:
+                tries = tries - 1
+                print("\tAccount not found {} tries remaining!".format(tries))
+                if tries == 0:
+                    break
+
+
+def checkAccount():
+    num = 1
+    if not Email:
+        print("No Account Found, Please Create Account First")
+    else:
+        print("Checking Accounts: ")
+        for i in AccountSignIn:
+            print("\tAccount#{}:".format(num), i)
+            num += 1
 
 
 def main():
@@ -48,20 +91,32 @@ def main():
             print("\tCreating account")
             email = input("Enter your email: ")
             Pass = input("Enter your Password: ")
+            pass2 = input('Re-Type Password: ')
+            if email in Email:
+                print("This email is already used!")
+            elif Pass == pass2:
+                print("\tAccount has been created! ")
+            else:
+                while True:
+                    print("\tPassword not match!")
+                    pass2 = input('Re-Type Password: ')
+                    if pass2 == Pass:
+                        print("\tAccount has been created! ")
+                        break
             Email.append(email)
+            AccountSignIn.append(email)
             Passwords.append(Pass)
-            print("\tAccount has been created! ")
         elif ans == "2":
             Emails()
         elif ans == "3":
+            delete()
+        elif ans == "4":
+            checkAccount()
+        elif ans == "5":
             print("Thanks for using our program")
-            mail = True
-
+            break
         else:
             print("This is not an option")
 
 
 main()
-
-
-
