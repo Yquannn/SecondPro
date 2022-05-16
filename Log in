@@ -23,10 +23,10 @@ def delete():
             while not t:
                 y = input("Password : ")
                 if y in Passwords:
-                    Email.pop()
-                    Passwords.pop()
+                    Email.remove(x)
+                    Passwords.remove(y)
+                    AccountSignIn.remove(x)
                     print("\tAccount has been Deleted!")
-                    AccountSignIn.pop()
                     t = True
                 else:
                     tries = tries - 1
@@ -85,6 +85,7 @@ def checkAccount():
 def main():
     mail = False
     while not mail:
+        print()
         choice()
         ans = input("\tWhat you want: ")
         if ans == "1":
@@ -93,7 +94,10 @@ def main():
             Pass = input("Enter your Password: ")
             pass2 = input('Re-Type Password: ')
             if email in Email:
-                print("This email is already used!")
+                print("\tThis email is already used!")
+                AccountSignIn.pop()
+                Email.pop()
+                Passwords.pop()
             elif Pass == pass2:
                 print("\tAccount has been created! ")
             else:
